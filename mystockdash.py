@@ -112,31 +112,25 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# Custom styled block for True Portfolio Performance
+# Inject CSS to shade ONLY the first bordered container (your True Portfolio Performance block)
 st.markdown("""
-<div style="
+<style>
+/* Target the first bordered container on the page */
+div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
     background-color: rgba(0, 150, 255, 0.08);
     border-radius: 12px;
     padding: 20px;
-    margin-bottom: 20px;
     border: 1px solid rgba(0, 150, 255, 0.25);
-">
-<h3 style="margin-top:0;">True Portfolio Performance</h3>
+}
+</style>
 """, unsafe_allow_html=True)
 
-# All metrics stay inside the same div
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
-with col2:
-    st.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
-with col3:
-    st.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
-
-# Close the div
-st.markdown("</div>", unsafe_allow_html=True)
-
-
+with st.container(border=True):
+    st.subheader("True Portfolio Performance")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
+    col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
+    col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
 
 # --- BOTTOM ROW: STOCK ONLY PERFORMANCE ---
