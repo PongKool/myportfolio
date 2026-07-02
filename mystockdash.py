@@ -29,16 +29,15 @@ MY_PORTFOLIO = {
 
 # 2. Caching function
 @st.cache_data(ttl=600)
-
 def fetch_prices(tickers):
     prices = {}
     for ticker in tickers:
         ticker_obj = yf.Ticker(ticker)
         data = ticker_obj.history(period="1d")
-      
-    if not data.empty:
+        # FIXED: Moved this if statement INSIDE the for loop
+        if not data.empty:
             prices[ticker] = float(data['Close'].iloc[-1])
-    else:
+        else:
             prices[ticker] = None
     return prices
 
@@ -75,8 +74,8 @@ for ticker, info in MY_PORTFOLIO.items():
         "%P&L": pct_pl
     })
 
-total_val += val
-total_cost += cost
+    total_val += val
+    total_cost += cost
 
 # Convert to DataFrame
 df = pd.DataFrame(rows)
