@@ -114,7 +114,18 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # Inject CSS to shade the container
 # Add a custom wrapper with a unique class
-st.markdown('<div class="true-performance">', unsafe_allow_html=True)
+# Inject CSS that targets the specific bordered container by its header text
+st.markdown("""
+<style>
+/* Find the container that has "True Portfolio Performance" and shade inside */
+div[data-testid="stVerticalBlockBorderWrapper"]:has(div:contains("True Portfolio Performance")) {
+    background-color: rgba(0, 150, 255, 0.08);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(0, 150, 255, 0.25);
+}
+</style>
+""", unsafe_allow_html=True)
 
 with st.container(border=True):
     st.subheader("True Portfolio Performance")
@@ -123,20 +134,6 @@ with st.container(border=True):
     col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
     col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
-st.markdown('</div>', unsafe_allow_html=True)
-
-# Inject CSS for that specific section
-st.markdown("""
-<style>
-.true-performance {
-    background-color: rgba(0, 150, 255, 0.08); /* light blue shade */
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(0, 150, 255, 0.25);
-}
-</style>
-""", unsafe_allow_html=True)
 
 
 # st.divider()
