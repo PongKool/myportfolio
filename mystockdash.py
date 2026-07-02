@@ -22,7 +22,7 @@ st.caption(f"Last updated: {thailand_time} (Bangkok)")
 
 # --- PORTFOLIO SETTINGS ---
 st.markdown("### Portfolio Settings")
-ORIGINAL_INVESTMENT = 500000.0  # Hardcode your actual deposited amount here
+ORIGINAL_INVESTMENT = 600000.0  # Hardcode your actual deposited amount here
 
 # User input for cash on hand
 line_available = st.number_input("Line Available (Cash in account in THB)", min_value=0.0, value=0.0, step=1000.0)
