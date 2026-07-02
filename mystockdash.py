@@ -112,13 +112,14 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# 1. Inject CSS to turn ALL metrics into premium cards
+# 1. Inject CSS to turn ONLY the top metrics into premium cards
 st.markdown("""
 <style>
-div[data-testid="stMetric"] {
-    background-color: rgba(0, 150, 255, 0.05) !important;
-    border: 1px solid rgba(0, 150, 255, 0.2) !important;
-    padding: 15px !important;
+/* Add the wrapper target so it ONLY shades metrics inside the bordered container */
+div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stMetric"] {
+    background-color: rgba(0, 150, 255, 0.05) !important; 
+    border: 1px solid rgba(0, 150, 255, 0.2) !important; 
+    padding: 15px !important; 
     border-radius: 10px !important;
 }
 </style>
