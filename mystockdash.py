@@ -16,8 +16,8 @@ st.caption(f"Last updated: {datetime.datetime.now().strftime('%H:%M:%S')}")
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "ADVANC": {"shares": 200, "buy_price": 362.61},
-    "AOT": {"shares": 1300, "buy_price": 63.82},
+    "ADVANC.BK": {"shares": 200, "buy_price": 362.61},
+    "AOT.BK": {"shares": 1300, "buy_price": 63.82},
     "KBANK.BK": {"shares": 500, "buy_price": 206.75}, # Added comma
     "PRM.BK": {"shares": 3100, "buy_price": 8.88},
     "BDMS.BK": {"shares": 3000, "buy_price": 18.62},
@@ -35,11 +35,8 @@ def fetch_prices(tickers):
     for ticker in tickers:
         ticker_obj = yf.Ticker(ticker)
         data = ticker_obj.history(period="1d")
-        
-        # --- ADD THIS LINE ---
-        st.write(f"Checking {ticker}: Found {len(data)} rows")
-        
-        if not data.empty:
+      
+    if not data.empty:
             prices[ticker] = float(data['Close'].iloc[-1])
         else:
             prices[ticker] = None
@@ -58,18 +55,14 @@ total_cost = 0
 for ticker, info in MY_PORTFOLIO.items():
     price = prices.get(ticker) # Remove the ', 0' default temporarily
     
-    # Debug: Print the price to the console/UI if it's missing
-    if price is None or pd.isna(price):
-        st.write(f"Debug: {ticker} returned no price!")
-        continue
-        
+      
     shares = info["shares"]
     val = price * shares
     cost = info["buy_price"] * shares
     profit_loss = val - cost
     pct_pl = (profit_loss / cost) * 100 if cost != 0 else 0
     
-rows.append({
+    rows.append({
         "Ticker": ticker, 
         "Shares": shares,
         "Current Price": price,  # <--- ADD THIS LINE
