@@ -129,4 +129,4 @@ elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
 # 4. Set the Ticker as the index ONLY for the chart display
-st.bar_chart(chart_df.set_index("Ticker")["Value"], key=sort_option)
+st.bar_chart(chart_df.set_index("Ticker")["Value"])
