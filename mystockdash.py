@@ -118,7 +118,7 @@ with st.container(border=True):
     col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
     col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
-st.divider()
+# st.divider()
 
 st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
 
