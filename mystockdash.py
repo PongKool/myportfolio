@@ -29,18 +29,18 @@ MY_PORTFOLIO = {
 
 # 2. Caching function
 @st.cache_data(ttl=600)
+
 def fetch_prices(tickers):
-    # Use threads=True for faster/more reliable downloads
     data = yf.download(tickers, period="1d", group_by='ticker', threads=True)
-    
     prices = {}
     for ticker in tickers:
         try:
-            # Access the specific ticker column, then the 'Close' price
             ticker_data = data[ticker]
             price = ticker_data['Close'].iloc[-1]
             prices[ticker] = float(price)
-        except:
+        except Exception as e:
+            # --- ADD THIS LINE ---
+            st.write(f"Error fetching {ticker}: {e}")
             prices[ticker] = None
     return prices
 
