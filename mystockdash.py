@@ -50,8 +50,14 @@ total_val = 0
 total_cost = 0
 
 for ticker, info in MY_PORTFOLIO.items():
-    price = prices.get(ticker, 0)
-    shares = info["shares"] # Get shares
+    price = prices.get(ticker) # Remove the ', 0' default temporarily
+    
+    # Debug: Print the price to the console/UI if it's missing
+    if price is None or pd.isna(price):
+        st.write(f"Debug: {ticker} returned no price!")
+        continue
+        
+    shares = info["shares"]
     val = price * shares
     cost = info["buy_price"] * shares
     profit_loss = val - cost
