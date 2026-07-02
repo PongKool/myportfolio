@@ -66,8 +66,8 @@ rows.append({
         "%P&L": pct_pl
     })
 
-    total_val += val
-    total_cost += cost
+total_val += val
+total_cost += cost
 
 # Convert to DataFrame
 df = pd.DataFrame(rows)
