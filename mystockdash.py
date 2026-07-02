@@ -38,7 +38,7 @@ def fetch_prices(tickers):
       
     if not data.empty:
             prices[ticker] = float(data['Close'].iloc[-1])
-        else:
+    else:
             prices[ticker] = None
     return prices
 
