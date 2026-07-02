@@ -105,10 +105,12 @@ sort_option = st.selectbox(
     index=0 
 )
 
-# 2. Define the sorting logic 
-# We work from 'df' (which is your base data) and create a fresh 'chart_df' every time
+# 2. Define the sorting logic
+# --- ADDED: Drop rows with NaN values to prevent the crash ---
+chart_df = df.dropna(subset=['Value']) 
+
 if sort_option == "Ticker: A-Z":
-    chart_df = df.sort_values(by="Ticker", ascending=True)
+    chart_df = chart_df.sort_values(by="Ticker", ascending=True)
 elif sort_option == "Ticker: Z-A":
     chart_df = chart_df.sort_values(by="Ticker", ascending=False)
 elif sort_option == "Value: Low to High":
@@ -117,5 +119,4 @@ elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
 # 3. Display the chart
-# Setting the index here ensures the bar chart labels use the Ticker column
 st.bar_chart(chart_df.set_index("Ticker")["Value"])
