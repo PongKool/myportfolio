@@ -118,26 +118,24 @@ pl_arrow = "↑" if real_pl >= 0 else "↓"
 # Build a custom HTML card to guarantee the entire box is shaded
 custom_card = f"""
 <div style="background-color: rgba(0, 150, 255, 0.08); border: 1px solid rgba(0, 150, 255, 0.3); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1rem;">
-    <h3 style="margin-top: 0; margin-bottom: 1rem; font-family: sans-serif;">True Portfolio Performance</h3>
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
-        <div style="flex: 1; min-width: 200px;">
-            <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real Total Value (Stocks + Cash)</p>
-            <h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{real_total_value:,.2f} THB</h2>
-        </div>
-        <div style="flex: 1; min-width: 200px;">
-            <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Original Investment</p>
-            <h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{ORIGINAL_INVESTMENT:,.2f} THB</h2>
-        </div>
-        <div style="flex: 1; min-width: 200px;">
-            <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real P/L</p>
-            
-            <div style="display: flex; align-items: baseline; gap: 0.75rem; margin-top: 0.25rem;">
-                <h2 style="margin: 0; font-weight: 400;">{real_pl:,.2f} THB</h2>
-                <span style="color: {pl_color}; font-weight: bold; font-size: 1.1rem;">{pl_arrow} {real_pl_pct:.2f}%</span>
-            </div>
-            
-        </div>
-    </div>
+<h3 style="margin-top: 0; margin-bottom: 1rem; font-family: sans-serif;">True Portfolio Performance</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+<div style="flex: 1; min-width: 200px;">
+<p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real Total Value (Stocks + Cash)</p>
+<h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{real_total_value:,.2f} THB</h2>
+</div>
+<div style="flex: 1; min-width: 200px;">
+<p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Original Investment</p>
+<h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{ORIGINAL_INVESTMENT:,.2f} THB</h2>
+</div>
+<div style="flex: 1; min-width: 200px;">
+<p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real P/L</p>
+<div style="display: flex; align-items: baseline; gap: 0.75rem; margin-top: 0.25rem;">
+<h2 style="margin: 0; font-weight: 400;">{real_pl:,.2f} THB</h2>
+<span style="color: {pl_color}; font-weight: bold; font-size: 1.1rem;">{pl_arrow} {real_pl_pct:.2f}%</span>
+</div>
+</div>
+</div>
 </div>
 """
 
