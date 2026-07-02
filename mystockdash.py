@@ -143,19 +143,24 @@ elif sort_option == "Value: Low to High":
 elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
-# 4. FIXED: Swap x and y axes - Tickers on Y-axis, Value on X-axis (horizontal bar chart)
+# 4. Horizontal bar chart with tickers on Y-axis
 fig = px.bar(
     chart_df, 
-    y="Ticker",           # Changed from x to y
-    x="Value",            # Changed from y to x
-    orientation="h",      # Added horizontal orientation
+    y="Ticker",
+    x="Value",
+    orientation="h",
     title="Portfolio Value by Asset",
     labels={"Value": "Value (THB)", "Ticker": "Stock Ticker"},
     color="Value",
     color_continuous_scale="Viridis"
 )
 
-# Maintain the order by setting category order for Y-axis
-fig.update_yaxes(categoryorder="array", categoryarray=chart_df["Ticker"].tolist())
+# FIXED: For horizontal charts, reverse the categoryarray so:
+# - A-Z: A at top, Z at bottom
+# - Z-A: Z at top, A at bottom
+# - Low to High: Low at top, High at bottom
+# - High to Low: High at top, Low at bottom
+ticker_order = chart_df["Ticker"].tolist()[::-1]
+fig.update_yaxes(categoryorder="array", categoryarray=ticker_order)
 
 st.plotly_chart(fig, use_container_width=True, key=f"chart_{sort_option}")
