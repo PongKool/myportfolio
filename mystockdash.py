@@ -140,5 +140,5 @@ elif sort_option == "Value: High to Low":
 chart_df = chart_df.reset_index(drop=True)
 chart_df = chart_df.set_index("Ticker")
 
-# Display bar chart with sorted data
-st.bar_chart(chart_df["Value"])
+# 5. FIXED: Add key parameter with sort_option to force chart re-render
+st.bar_chart(chart_df["Value"], use_container_width=True)
