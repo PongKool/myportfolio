@@ -113,15 +113,24 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# 1. Inject CSS to hunt for our specific 'blue-tag'
+# 1. Inject CSS to shade the ENTIRE container using our 'blue-tag'
 st.markdown("""
 <style>
-/* Target ONLY metrics inside a column that contains our hidden blue tag */
-div[data-testid="stColumn"]:has(.blue-tag) div[data-testid="stMetric"] {
+/* Target the massive bordered wrapper that contains our blue tags */
+div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) {
     background-color: rgba(0, 150, 255, 0.08) !important;
-    border: 1px solid rgba(0, 150, 255, 0.2) !important;
-    padding: 15px !important;
-    border-radius: 10px !important;
+    border: 1px solid rgba(0, 150, 255, 0.4) !important;
+}
+
+/* Force Streamlit's inner layout blocks to be transparent so the shade shows through */
+div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) [data-testid="stVerticalBlock"] {
+    background-color: transparent !important;
+}
+
+/* Remove the individual card borders so they blend smoothly into the big box */
+div[data-testid="stColumn"]:has(.blue-tag) div[data-testid="stMetric"] {
+    background-color: transparent !important;
+    border: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
