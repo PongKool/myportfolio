@@ -115,11 +115,11 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 # Inject CSS to shade the container
 st.markdown("""
 <style>
-/* Target ONLY the metric boxes inside the bordered container */
-div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stMetric"] {
-    background-color: rgba(0, 150, 255, 0.10) !important;
-    padding: 15px !important;
-    border-radius: 8px !important;
+/* Shade the background of the True Portfolio Performance container */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: rgba(0, 150, 255, 0.05) !important;
+    border-radius: 10px !important;
+    padding: 20px !important;
     border: 1px solid rgba(0, 150, 255, 0.2) !important;
 }
 </style>
