@@ -111,30 +111,21 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# --- TOP ROW: OVERALL REAL PERFORMANCE ---
-
-# --- TOP ROW: OVERALL REAL PERFORMANCE ---
-
-# 1. Inject CSS
+# 1. Inject Foolproof CSS
 st.markdown("""
 <style>
-/* Find the bordered box that contains the tag and shade it */
-div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) {
-    background-color: rgba(0, 150, 255, 0.12) !important;
-    border: 1px solid rgba(0, 150, 255, 0.4) !important;
-}
-
-/* Force ALL inner layout blocks to be transparent so the white layers disappear */
-div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) div {
-    background-color: transparent !important;
+/* Target strictly the FIRST row of columns on the page */
+div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stMetric"] {
+    background-color: rgba(0, 150, 255, 0.08) !important;
+    border: 1px solid rgba(0, 150, 255, 0.2) !important;
+    padding: 15px !important;
+    border-radius: 10px !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# 2. Draw the container (Removed the hidden tags!)
 with st.container(border=True):
-    # 2. DROP THE BEACON HERE (Right at the top, outside the columns!)
-    st.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
-    
     st.subheader("True Portfolio Performance")
     col1, col2, col3 = st.columns(3)
     col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
