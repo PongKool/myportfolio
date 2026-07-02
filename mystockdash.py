@@ -20,6 +20,14 @@ thailand_tz = pytz.timezone('Asia/Bangkok')
 thailand_time = dt.now(thailand_tz).strftime('%H:%M:%S')
 st.caption(f"Last updated: {thailand_time} (Bangkok)")
 
+# --- PORTFOLIO SETTINGS ---
+st.markdown("### Portfolio Settings")
+ORIGINAL_INVESTMENT = 500000.0  # Hardcode your actual deposited amount here
+
+# User input for cash on hand
+line_available = st.number_input("Line Available (Cash in account in THB)", min_value=0.0, value=0.0, step=1000.0)
+st.divider() # Adds a clean visual line to separate settings from the dashboard
+
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
@@ -96,12 +104,27 @@ df = pd.DataFrame(rows)
 df.index = df.index + 1
 
 # 4. Display Visual Improvements
+
+# --- NEW CALCULATIONS ---
+real_total_value = total_val + line_available
+real_pl = real_total_value - ORIGINAL_INVESTMENT
+real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 else 0
+
+# --- TOP ROW: OVERALL REAL PERFORMANCE ---
+st.subheader("True Portfolio Performance")
 col1, col2, col3 = st.columns(3)
-col1.metric("Total Value", f"{total_val:,.2f} THB")
-col2.metric("Total Cost", f"{total_cost:,.2f} THB")
-# Color the P&L metric red/green based on value
-col3.metric("Profit/Loss", f"{(total_val - total_cost):,.2f} THB", 
-            delta=f"{((total_val - total_cost)/total_cost)*100:.2f}%")
+col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
+col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
+col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
+
+st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
+
+# --- BOTTOM ROW: STOCK ONLY PERFORMANCE ---
+st.subheader("Stock Holdings Performance")
+col4, col5, col6 = st.columns(3)
+col4.metric("Total Stock Value", f"{total_val:,.2f} THB")
+col5.metric("Total Stock Cost", f"{total_cost:,.2f} THB")
+col6.metric("Stock P/L", f"{(total_val - total_cost):,.2f} THB", delta=f"{((total_val - total_cost)/total_cost)*100:.2f}%")
 
 def color_profit_loss(val):
     if isinstance(val, (int, float)):
