@@ -98,14 +98,15 @@ st.dataframe(
 # Optional: Add a quick visualization with sorting options
 st.subheader("Asset Allocation")
 
-# Create sorting options in the sidebar
-sort_option = st.sidebar.selectbox(
+# --- CHANGED: Moved from st.sidebar to st ---
+# The options are now in the main body of the page
+sort_option = st.selectbox(
     "Sort Asset Allocation by:",
     ("Value: High to Low", "Value: Low to High", "Ticker: A-Z", "Ticker: Z-A")
 )
 
 # Apply sorting logic
-chart_df = df.copy() # Work on a copy to keep the table as is
+chart_df = df.copy() 
 
 if sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
