@@ -5,6 +5,12 @@ import pandas as pd
 st.set_page_config(page_title="My Portfolio", layout="wide")
 st.title("📊 Personal Stock Portfolio")
 
+# --- Add this button for refreshing ---
+if st.button("Refresh Data"):
+    st.cache_data.clear()  # This wipes the cache and forces a new download
+    st.rerun()             # This reloads the page to show new data
+
+
 # 1. Define your portfolio
 MY_PORTFOLIO = {
     "ADVANC.BK": {"shares": 200, "buy_price": 362.61},
