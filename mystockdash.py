@@ -20,10 +20,10 @@ st.caption(f"Last updated: {datetime.datetime.now().strftime('%H:%M:%S')}")
 MY_PORTFOLIO = {
     "ADVANC.BK": {"shares": 200, "buy_price": 362.61},
     "AOT.BK": {"shares": 1300, "buy_price": 63.82},
-    "KBANK.BK": {"shares": 500, "buy_price": 206.75}, # Added comma
+    "KBANK.BK": {"shares": 500, "buy_price": 206.75},
     "PRM.BK": {"shares": 3100, "buy_price": 8.88},
     "BDMS.BK": {"shares": 3000, "buy_price": 18.62},
-    "KTB.BK": {"shares": 1000, "buy_price": 36.53},  # Added comma
+    "KTB.BK": {"shares": 1000, "buy_price": 36.53},
     "PTT.BK": {"shares": 3700, "buy_price": 35.79},
     "SCB.BK": {"shares": 900, "buy_price": 142.63},
     "TRUE.BK": {"shares": 1700, "buy_price": 12.83}
@@ -75,6 +75,7 @@ for ticker, info in MY_PORTFOLIO.items():
     
     rows.append({
         "Ticker": ticker, 
+        "Display Ticker": ticker.replace(".BK", ""),  # Remove .BK for display
         "Shares": shares,
         "Current Price": price,
         "Value": val, 
@@ -106,7 +107,7 @@ def color_profit_loss(val):
 st.subheader("Portfolio Breakdown")
 
 st.dataframe(
-    df.style.format({
+    df[["Display Ticker", "Shares", "Current Price", "Value", "P&L", "%P&L"]].style.format({
         "Current Price": "{:,.2f}",
         "Value": "{:,.2f}",
         "P&L": "{:,.2f}",
@@ -135,32 +136,28 @@ chart_df = chart_df.dropna(subset=['Value'])
 chart_df = chart_df.reset_index(drop=True)
 
 if sort_option == "Ticker: A-Z":
-    chart_df = chart_df.sort_values(by="Ticker", ascending=True)
+    chart_df = chart_df.sort_values(by="Display Ticker", ascending=True)
 elif sort_option == "Ticker: Z-A":
-    chart_df = chart_df.sort_values(by="Ticker", ascending=False)
+    chart_df = chart_df.sort_values(by="Display Ticker", ascending=False)
 elif sort_option == "Value: Low to High":
     chart_df = chart_df.sort_values(by="Value", ascending=True)
 elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
-# 4. Horizontal bar chart with tickers on Y-axis
+# 4. Horizontal bar chart with display tickers on Y-axis
 fig = px.bar(
     chart_df, 
-    y="Ticker",
+    y="Display Ticker",
     x="Value",
     orientation="h",
     title="Portfolio Value by Asset",
-    labels={"Value": "Value (THB)", "Ticker": "Stock Ticker"},
+    labels={"Value": "Value (THB)", "Display Ticker": "Stock Ticker"},
     color="Value",
     color_continuous_scale="Viridis"
 )
 
-# FIXED: For horizontal charts, reverse the categoryarray so:
-# - A-Z: A at top, Z at bottom
-# - Z-A: Z at top, A at bottom
-# - Low to High: Low at top, High at bottom
-# - High to Low: High at top, Low at bottom
-ticker_order = chart_df["Ticker"].tolist()[::-1]
+# FIXED: For horizontal charts, reverse the categoryarray so items display in the correct order
+ticker_order = chart_df["Display Ticker"].tolist()[::-1]
 fig.update_yaxes(categoryorder="array", categoryarray=ticker_order)
 
 st.plotly_chart(fig, use_container_width=True, key=f"chart_{sort_option}")
