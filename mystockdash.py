@@ -98,20 +98,20 @@ st.dataframe(
 # Optional: Add a quick visualization with sorting options
 st.subheader("Asset Allocation")
 
-# 1. The selection menu
 sort_option = st.selectbox(
     "Sort Asset Allocation by:",
     ("Ticker: A-Z", "Ticker: Z-A", "Value: Low to High", "Value: High to Low"),
     index=0 
 )
 
-# 2. Define the sorting logic
-# We convert Value to numeric, forcing errors to NaN, then drop those rows.
-# This ensures no "None" or "NaN" values can ever break the chart.
-chart_df = df.copy()
+# 1. Create a clean copy for the chart
+chart_df = df.copy() 
+
+# 2. Convert Value to numeric to ensure clean sorting
 chart_df['Value'] = pd.to_numeric(chart_df['Value'], errors='coerce')
 chart_df = chart_df.dropna(subset=['Value'])
 
+# 3. Sort based on the selection
 if sort_option == "Ticker: A-Z":
     chart_df = chart_df.sort_values(by="Ticker", ascending=True)
 elif sort_option == "Ticker: Z-A":
@@ -121,6 +121,5 @@ elif sort_option == "Value: Low to High":
 elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
-# 3. Display the chart
-# Using st.bar_chart with the specific sorted DataFrame
+# 4. Set the Ticker as the index ONLY for the chart display
 st.bar_chart(chart_df.set_index("Ticker")["Value"])
