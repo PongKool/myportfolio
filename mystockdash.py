@@ -21,7 +21,14 @@ MY_PORTFOLIO = {
 # 2. Caching function
 @st.cache_data(ttl=600)
 def fetch_prices(tickers):
-    return yf.download(tickers, period="1d", group_by='ticker')['Close'].iloc[-1]
+    # Do not use group_by='ticker' here to keep a cleaner structure
+    # or handle the MultiIndex properly.
+    data = yf.download(tickers, period="1d")
+    
+    # If downloading multiple tickers, the 'Close' column 
+    # will be a DataFrame where columns are the ticker symbols.
+    # We take the last row (.iloc[-1])
+    return data['Close'].iloc[-1]
 
 # 3. Data Processing
 tickers = list(MY_PORTFOLIO.keys())
