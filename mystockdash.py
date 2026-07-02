@@ -42,14 +42,15 @@ total_cost = 0
 
 for ticker, info in MY_PORTFOLIO.items():
     price = prices.get(ticker, 0)
-    val = price * info["shares"]
-    cost = info["buy_price"] * info["shares"]
+    shares = info["shares"] # Get shares
+    val = price * shares
+    cost = info["buy_price"] * shares
     profit_loss = val - cost
-    # Calculate percentage P&L safely
     pct_pl = (profit_loss / cost) * 100 if cost != 0 else 0
     
     rows.append({
         "Ticker": ticker, 
+        "Shares": shares, # Add this column
         "Value": val, 
         "P&L": profit_loss, 
         "%P&L": pct_pl
@@ -71,12 +72,21 @@ col3.metric("Profit/Loss", f"{(total_val - total_cost):,.2f} THB",
 st.subheader("Portfolio Breakdown")
 
 # Use st.dataframe for interactivity (sorting, formatting)
+# --- Replace from line 75 down to 82 with this: ---
+
+def color_profit_loss(val):
+    if isinstance(val, (int, float)):
+        color = 'green' if val >= 0 else 'red'
+        return f'color: {color}'
+    return ''
+
+st.subheader("Portfolio Breakdown")
 st.dataframe(
     df.style.format({
         "Value": "{:,.2f}",
         "P&L": "{:,.2f}",
         "%P&L": "{:,.2f}%"
-    }).background_gradient(subset=['%P&L'], cmap='RdYlGn'),
+    }).map(color_profit_loss, subset=['P&L', '%P&L']),
     use_container_width=True
 )
 
