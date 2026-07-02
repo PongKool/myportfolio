@@ -145,10 +145,39 @@ st.markdown(custom_card, unsafe_allow_html=True)
 
 # --- BOTTOM ROW: STOCK ONLY PERFORMANCE ---
 st.subheader("Stock Holdings Performance")
-col4, col5, col6 = st.columns(3)
-col4.metric("Total Stock Value", f"{total_val:,.2f} THB")
-col5.metric("Total Stock Cost", f"{total_cost:,.2f} THB")
-col6.metric("Stock P/L", f"{(total_val - total_cost):,.2f} THB", delta=f"{((total_val - total_cost)/total_cost)*100:.2f}%")
+
+# 1. Calculate the values and colors for the Stock P/L
+stock_pl = total_val - total_cost
+stock_pl_pct = (stock_pl / total_cost) * 100 if total_cost != 0 else 0
+stock_pl_color = "#09ab3b" if stock_pl >= 0 else "#ff2b2b"
+stock_pl_arrow = "↑" if stock_pl >= 0 else "↓"
+
+# 2. Build the transparent HTML layout
+stock_card = f"""
+<div style="margin-bottom: 1rem; padding: 0.5rem 0;">
+<div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+<div style="flex: 1; min-width: 200px;">
+<p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Total Stock Value</p>
+<h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{total_val:,.2f} THB</h2>
+</div>
+<div style="flex: 1; min-width: 200px;">
+<p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Total Stock Cost</p>
+<h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{total_cost:,.2f} THB</h2>
+</div>
+<div style="flex: 1; min-width: 200px;">
+<div style="display: flex; align-items: center; gap: 0.5rem;">
+<p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Stock P/L</p>
+<span style="color: {stock_pl_color}; font-weight: bold; font-size: 0.9rem;">{stock_pl_arrow} {stock_pl_pct:.2f}%</span>
+</div>
+<h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{stock_pl:,.2f} THB</h2>
+</div>
+</div>
+</div>
+"""
+
+# 3. Render it to the screen
+st.markdown(stock_card, unsafe_allow_html=True)
+
 
 def color_profit_loss(val):
     if isinstance(val, (int, float)):
