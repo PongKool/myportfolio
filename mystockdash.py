@@ -60,6 +60,7 @@ for ticker, info in MY_PORTFOLIO.items():
 
 # Convert to DataFrame
 df = pd.DataFrame(rows)
+df.index = df.index + 1
 
 # 4. Display Visual Improvements
 col1, col2, col3 = st.columns(3)
