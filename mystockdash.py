@@ -112,31 +112,28 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# Inject CSS to shade the container
-# Add a custom wrapper with a unique class
-# Inject CSS that targets the specific bordered container by its header text
+# 1. Inject CSS to target the specific bordered container
 st.markdown("""
 <style>
-/* Find the container that has "True Portfolio Performance" and shade inside */
-div[data-testid="stVerticalBlockBorderWrapper"]:has(div:contains("True Portfolio Performance")) {
-    background-color: rgba(0, 150, 255, 0.08);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid rgba(0, 150, 255, 0.25);
+/* Target the very first bordered container on the page */
+div[data-testid="stVerticalBlockBorderWrapper"]:nth-of-type(1) {
+    background-color: rgba(0, 150, 255, 0.12) !important;
+    border: 1px solid rgba(0, 150, 255, 0.4) !important;
+}
+/* Force the inside of that container to be transparent so the blue shows through */
+div[data-testid="stVerticalBlockBorderWrapper"]:nth-of-type(1) > div {
+    background-color: transparent !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
+# 2. Draw the native container (No HTML div wrappers needed!)
 with st.container(border=True):
     st.subheader("True Portfolio Performance")
     col1, col2, col3 = st.columns(3)
     col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
     col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
     col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
-
-
-
-# st.divider()
 
 st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
 
