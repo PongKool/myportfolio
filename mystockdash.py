@@ -16,8 +16,8 @@ st.caption(f"Last updated: {datetime.datetime.now().strftime('%H:%M:%S')}")
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "ADVANC.BK": {"shares": 200, "buy_price": 362.61},
-    "AOT.BK": {"shares": 1300, "buy_price": 63.82},
+    "ADVANC": {"shares": 200, "buy_price": 362.61},
+    "AOT": {"shares": 1300, "buy_price": 63.82},
     "KBANK.BK": {"shares": 500, "buy_price": 206.75}, # Added comma
     "PRM.BK": {"shares": 3100, "buy_price": 8.88},
     "BDMS.BK": {"shares": 3000, "buy_price": 18.62},
@@ -29,23 +29,19 @@ MY_PORTFOLIO = {
 
 # 2. Caching function
 @st.cache_data(ttl=600)
+
 def fetch_prices(tickers):
     prices = {}
-    # Download one-by-one to avoid bulk download failure issues
     for ticker in tickers:
-        try:
-            ticker_obj = yf.Ticker(ticker)
-            # Try to get the latest 'regularMarketPrice' or 'currentPrice'
-            # If that fails, fall back to history
-            data = ticker_obj.history(period="1d")
-            if not data.empty:
-                prices[ticker] = float(data['Close'].iloc[-1])
-            else:
-                # Log that we found nothing for this ticker
-                st.warning(f"Could not fetch data for: {ticker}")
-                prices[ticker] = None
-        except Exception as e:
-            st.error(f"Error fetching {ticker}: {e}")
+        ticker_obj = yf.Ticker(ticker)
+        data = ticker_obj.history(period="1d")
+        
+        # --- ADD THIS LINE ---
+        st.write(f"Checking {ticker}: Found {len(data)} rows")
+        
+        if not data.empty:
+            prices[ticker] = float(data['Close'].iloc[-1])
+        else:
             prices[ticker] = None
     return prices
 
