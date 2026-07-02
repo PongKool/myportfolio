@@ -115,13 +115,12 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 # Inject CSS to shade the container
 st.markdown("""
 <style>
-/* 1. Give the wrapper the blue shade */
-div[data-testid="stVerticalBlockBorderWrapper"] {
-    background-color: rgba(0, 150, 255, 0.15) !important; 
-}
-/* 2. Force the inner layout layer to be transparent so we can actually see it */
-div[data-testid="stVerticalBlockBorderWrapper"] > div {
-    background-color: transparent !important;
+/* Target ONLY the metric boxes inside the bordered container */
+div[data-testid="stVerticalBlockBorderWrapper"] div[data-testid="stMetric"] {
+    background-color: rgba(0, 150, 255, 0.10) !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(0, 150, 255, 0.2) !important;
 }
 </style>
 """, unsafe_allow_html=True)
