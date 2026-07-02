@@ -241,4 +241,4 @@ fig = px.bar(
 ticker_order = chart_df["Display Ticker"].tolist()[::-1]
 fig.update_yaxes(categoryorder="array", categoryarray=ticker_order)
 
-st.plotly_chart(fig, use_container_width=True, key=f"chart_{sort_option}")
+st.plotly_chart(fig, use_container_width=True, key=f"chart_{sort_option}", config={'displayModeBar': False})
