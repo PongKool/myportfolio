@@ -115,8 +115,13 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 # Inject CSS to shade the container
 st.markdown("""
 <style>
+/* 1. Give the wrapper the blue shade */
 div[data-testid="stVerticalBlockBorderWrapper"] {
     background-color: rgba(0, 150, 255, 0.15) !important; 
+}
+/* 2. Force the inner layout layer to be transparent so we can actually see it */
+div[data-testid="stVerticalBlockBorderWrapper"] > div {
+    background-color: transparent !important;
 }
 </style>
 """, unsafe_allow_html=True)
