@@ -143,18 +143,19 @@ elif sort_option == "Value: Low to High":
 elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
-# 4. Use Plotly for interactive charts
+# 4. FIXED: Swap x and y axes - Tickers on Y-axis, Value on X-axis (horizontal bar chart)
 fig = px.bar(
     chart_df, 
-    x="Ticker", 
-    y="Value",
+    y="Ticker",           # Changed from x to y
+    x="Value",            # Changed from y to x
+    orientation="h",      # Added horizontal orientation
     title="Portfolio Value by Asset",
     labels={"Value": "Value (THB)", "Ticker": "Stock Ticker"},
     color="Value",
     color_continuous_scale="Viridis"
 )
 
-# Maintain the order by setting category order
-fig.update_xaxes(categoryorder="array", categoryarray=chart_df["Ticker"].tolist())
+# Maintain the order by setting category order for Y-axis
+fig.update_yaxes(categoryorder="array", categoryarray=chart_df["Ticker"].tolist())
 
 st.plotly_chart(fig, use_container_width=True, key=f"chart_{sort_option}")
