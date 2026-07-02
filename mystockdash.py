@@ -34,12 +34,11 @@ MY_PORTFOLIO = {
     "ADVANC.BK": {"shares": 200, "buy_price": 362.61},
     "AOT.BK": {"shares": 1300, "buy_price": 63.82},
     "KBANK.BK": {"shares": 500, "buy_price": 206.75},
-    "PRM.BK": {"shares": 3100, "buy_price": 8.88},
+    "IVL.BK": {"shares": 1200, "buy_price": 22.74},
     "BDMS.BK": {"shares": 3000, "buy_price": 18.62},
     "KTB.BK": {"shares": 1000, "buy_price": 36.53},
-    "PTT.BK": {"shares": 3700, "buy_price": 35.79},
-    "SCB.BK": {"shares": 900, "buy_price": 142.63},
-    "TRUE.BK": {"shares": 1700, "buy_price": 12.83}
+    "PTT.BK": {"shares": 4700, "buy_price": 35.77},
+    "SCB.BK": {"shares": 900, "buy_price": 142.63}
 }
 
 # 2. Caching function with retry logic and delays
