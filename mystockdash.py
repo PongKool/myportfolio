@@ -129,11 +129,11 @@ custom_card = f"""
 <h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{ORIGINAL_INVESTMENT:,.2f} THB</h2>
 </div>
 <div style="flex: 1; min-width: 200px;">
+<div style="display: flex; align-items: center; gap: 0.5rem;">
 <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real P/L</p>
-<div style="display: flex; align-items: baseline; gap: 0.75rem; margin-top: 0.25rem;">
-<h2 style="margin: 0; font-weight: 400;">{real_pl:,.2f} THB</h2>
-<span style="color: {pl_color}; font-weight: bold; font-size: 1.1rem;">{pl_arrow} {real_pl_pct:.2f}%</span>
+<span style="color: {pl_color}; font-weight: bold; font-size: 0.9rem;">{pl_arrow} {real_pl_pct:.2f}%</span>
 </div>
+<h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{real_pl:,.2f} THB</h2>
 </div>
 </div>
 </div>
