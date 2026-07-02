@@ -98,24 +98,24 @@ st.dataframe(
 # Optional: Add a quick visualization with sorting options
 st.subheader("Asset Allocation")
 
-# --- CHANGED: Moved from st.sidebar to st ---
-# The options are now in the main body of the page
+# The menu now has your requested order, and index=0 sets "Ticker: A-Z" as default
 sort_option = st.selectbox(
     "Sort Asset Allocation by:",
-    ("Value: High to Low", "Value: Low to High", "Ticker: A-Z", "Ticker: Z-A")
+    ("Ticker: A-Z", "Ticker: Z-A", "Value: Low to High", "Value: High to Low"),
+    index=0 
 )
 
 # Apply sorting logic
 chart_df = df.copy() 
 
-if sort_option == "Value: High to Low":
-    chart_df = chart_df.sort_values(by="Value", ascending=False)
-elif sort_option == "Value: Low to High":
-    chart_df = chart_df.sort_values(by="Value", ascending=True)
-elif sort_option == "Ticker: A-Z":
+if sort_option == "Ticker: A-Z":
     chart_df = chart_df.sort_values(by="Ticker", ascending=True)
 elif sort_option == "Ticker: Z-A":
     chart_df = chart_df.sort_values(by="Ticker", ascending=False)
+elif sort_option == "Value: Low to High":
+    chart_df = chart_df.sort_values(by="Value", ascending=True)
+elif sort_option == "Value: High to Low":
+    chart_df = chart_df.sort_values(by="Value", ascending=False)
 
 # Display the sorted chart
 st.bar_chart(chart_df.set_index("Ticker")["Value"])
