@@ -69,8 +69,6 @@ col2.metric("Total Cost", f"{total_cost:,.2f} THB")
 col3.metric("Profit/Loss", f"{(total_val - total_cost):,.2f} THB", 
             delta=f"{((total_val - total_cost)/total_cost)*100:.2f}%")
 
-st.subheader("Portfolio Breakdown")
-
 # Use st.dataframe for interactivity (sorting, formatting)
 # --- Replace from line 75 down to 82 with this: ---
 
