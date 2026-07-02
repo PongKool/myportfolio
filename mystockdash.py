@@ -4,6 +4,8 @@ import pandas as pd
 import datetime
 import plotly.express as px
 import time
+from datetime import datetime as dt
+import pytz
 
 st.set_page_config(page_title="My Portfolio", layout="wide")
 st.title("📊 Personal Stock Portfolio")
@@ -13,7 +15,10 @@ if st.button("Refresh Data"):
     st.cache_data.clear()  # This wipes the cache and forces a new download
     st.rerun()             # This reloads the page to show new data
 
-st.caption(f"Last updated: {datetime.datetime.now().strftime('%H:%M:%S')}")
+# Get Thailand timezone and current time
+thailand_tz = pytz.timezone('Asia/Bangkok')
+thailand_time = dt.now(thailand_tz).strftime('%H:%M:%S')
+st.caption(f"Last updated: {thailand_time} (Bangkok)")
 
 
 # 1. Define your portfolio
