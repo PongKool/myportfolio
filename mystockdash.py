@@ -29,18 +29,23 @@ MY_PORTFOLIO = {
 
 # 2. Caching function
 @st.cache_data(ttl=600)
-
 def fetch_prices(tickers):
-    data = yf.download(tickers, period="1d", group_by='ticker', threads=True)
     prices = {}
+    # Download one-by-one to avoid bulk download failure issues
     for ticker in tickers:
         try:
-            ticker_data = data[ticker]
-            price = ticker_data['Close'].iloc[-1]
-            prices[ticker] = float(price)
+            ticker_obj = yf.Ticker(ticker)
+            # Try to get the latest 'regularMarketPrice' or 'currentPrice'
+            # If that fails, fall back to history
+            data = ticker_obj.history(period="1d")
+            if not data.empty:
+                prices[ticker] = float(data['Close'].iloc[-1])
+            else:
+                # Log that we found nothing for this ticker
+                st.warning(f"Could not fetch data for: {ticker}")
+                prices[ticker] = None
         except Exception as e:
-            # --- ADD THIS LINE ---
-            st.write(f"Error fetching {ticker}: {e}")
+            st.error(f"Error fetching {ticker}: {e}")
             prices[ticker] = None
     return prices
 
