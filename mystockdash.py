@@ -31,10 +31,6 @@ def fetch_prices(tickers):
     return data['Close'].iloc[-1]
 
 # 3. Data Processing
-tickers = list(MY_PORTFOLIO.keys())
-prices = fetch_prices(tickers)
-
-# Calculate metrics
 rows = []
 total_val = 0
 total_cost = 0
@@ -43,14 +39,42 @@ for ticker, info in MY_PORTFOLIO.items():
     price = prices.get(ticker, 0)
     val = price * info["shares"]
     cost = info["buy_price"] * info["shares"]
-    rows.append({"Ticker": ticker, "Value": val, "P&L": val - cost})
+    profit_loss = val - cost
+    # Calculate percentage P&L safely
+    pct_pl = (profit_loss / cost) * 100 if cost != 0 else 0
+    
+    rows.append({
+        "Ticker": ticker, 
+        "Value": val, 
+        "P&L": profit_loss, 
+        "%P&L": pct_pl
+    })
     total_val += val
     total_cost += cost
 
-# 4. Display
+# Convert to DataFrame
+df = pd.DataFrame(rows)
+
+# 4. Display Visual Improvements
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Value", f"{total_val:,.2f} THB")
 col2.metric("Total Cost", f"{total_cost:,.2f} THB")
-col3.metric("Profit/Loss", f"{(total_val - total_cost):,.2f} THB")
+# Color the P&L metric red/green based on value
+col3.metric("Profit/Loss", f"{(total_val - total_cost):,.2f} THB", 
+            delta=f"{((total_val - total_cost)/total_cost)*100:.2f}%")
 
-st.table(pd.DataFrame(rows))
+st.subheader("Portfolio Breakdown")
+
+# Use st.dataframe for interactivity (sorting, formatting)
+st.dataframe(
+    df.style.format({
+        "Value": "{:,.2f}",
+        "P&L": "{:,.2f}",
+        "%P&L": "{:,.2f}%"
+    }).background_gradient(subset=['%P&L'], cmap='RdYlGn'),
+    use_container_width=True
+)
+
+# Optional: Add a quick visualization
+st.subheader("Asset Allocation")
+st.bar_chart(df.set_index("Ticker")["Value"])
