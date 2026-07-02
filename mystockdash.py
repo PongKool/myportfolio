@@ -1,6 +1,7 @@
 import streamlit as st
 import yfinance as yf
 import pandas as pd
+import datetime # Make sure this is imported at the top of your file
 
 st.set_page_config(page_title="My Portfolio", layout="wide")
 st.title("📊 Personal Stock Portfolio")
@@ -9,6 +10,8 @@ st.title("📊 Personal Stock Portfolio")
 if st.button("Refresh Data"):
     st.cache_data.clear()  # This wipes the cache and forces a new download
     st.rerun()             # This reloads the page to show new data
+
+st.caption(f"Last updated: {datetime.datetime.now().strftime('%H:%M:%S')}")
 
 
 # 1. Define your portfolio
@@ -54,13 +57,15 @@ for ticker, info in MY_PORTFOLIO.items():
     profit_loss = val - cost
     pct_pl = (profit_loss / cost) * 100 if cost != 0 else 0
     
-    rows.append({
+rows.append({
         "Ticker": ticker, 
-        "Shares": shares, # Add this column
+        "Shares": shares,
+        "Current Price": price,  # <--- ADD THIS LINE
         "Value": val, 
         "P&L": profit_loss, 
         "%P&L": pct_pl
     })
+
     total_val += val
     total_cost += cost
 
@@ -86,8 +91,10 @@ def color_profit_loss(val):
     return ''
 
 st.subheader("Portfolio Breakdown")
+
 st.dataframe(
     df.style.format({
+        "Current Price": "{:,.2f}", # <--- ADD THIS LINE
         "Value": "{:,.2f}",
         "P&L": "{:,.2f}",
         "%P&L": "{:,.2f}%"
@@ -122,4 +129,4 @@ elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
 # 4. Set the Ticker as the index ONLY for the chart display
-st.bar_chart(chart_df.set_index("Ticker")["Value"])
+st.bar_chart(chart_df.set_index("Ticker")["Value"], key=sort_option)
