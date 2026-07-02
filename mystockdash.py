@@ -124,12 +124,18 @@ st.markdown("""
 <h3 style="margin-top:0;">True Portfolio Performance</h3>
 """, unsafe_allow_html=True)
 
+# All metrics stay inside the same div
 col1, col2, col3 = st.columns(3)
-col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
-col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
-col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
+with col1:
+    st.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
+with col2:
+    st.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
+with col3:
+    st.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
+# Close the div
 st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 
