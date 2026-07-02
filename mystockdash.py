@@ -53,9 +53,13 @@ total_val = 0
 total_cost = 0
 
 for ticker, info in MY_PORTFOLIO.items():
-    price = prices.get(ticker) # Remove the ', 0' default temporarily
+    price = prices.get(ticker) 
     
-      
+    # --- ADD THESE TWO LINES TO PREVENT THE CRASH ---
+    if price is None or pd.isna(price):
+        continue
+    # ------------------------------------------------
+    
     shares = info["shares"]
     val = price * shares
     cost = info["buy_price"] * shares
