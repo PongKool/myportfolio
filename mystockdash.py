@@ -1,7 +1,8 @@
 import streamlit as st
 import yfinance as yf
 import pandas as pd
-import datetime # Make sure this is imported at the top of your file
+import datetime
+import plotly.express as px
 
 st.set_page_config(page_title="My Portfolio", layout="wide")
 st.title("📊 Personal Stock Portfolio")
@@ -43,9 +44,7 @@ def fetch_prices(tickers):
 
 # 3. Data Processing
 tickers = list(MY_PORTFOLIO.keys())
-# --- ADD THIS LINE BELOW ---
 prices = fetch_prices(tickers) 
-# ---------------------------
 
 rows = []
 total_val = 0
@@ -68,7 +67,7 @@ for ticker, info in MY_PORTFOLIO.items():
     rows.append({
         "Ticker": ticker, 
         "Shares": shares,
-        "Current Price": price,  # <--- ADD THIS LINE
+        "Current Price": price,
         "Value": val, 
         "P&L": profit_loss, 
         "%P&L": pct_pl
@@ -89,9 +88,6 @@ col2.metric("Total Cost", f"{total_cost:,.2f} THB")
 col3.metric("Profit/Loss", f"{(total_val - total_cost):,.2f} THB", 
             delta=f"{((total_val - total_cost)/total_cost)*100:.2f}%")
 
-# Use st.dataframe for interactivity (sorting, formatting)
-# --- Replace from line 75 down to 82 with this: ---
-
 def color_profit_loss(val):
     if isinstance(val, (int, float)):
         color = 'green' if val >= 0 else 'red'
@@ -102,7 +98,7 @@ st.subheader("Portfolio Breakdown")
 
 st.dataframe(
     df.style.format({
-        "Current Price": "{:,.2f}", # <--- ADD THIS LINE
+        "Current Price": "{:,.2f}",
         "Value": "{:,.2f}",
         "P&L": "{:,.2f}",
         "%P&L": "{:,.2f}%"
@@ -126,7 +122,9 @@ chart_df = df.copy()
 chart_df['Value'] = pd.to_numeric(chart_df['Value'], errors='coerce')
 chart_df = chart_df.dropna(subset=['Value'])
 
-# 3. Sort based on the selection
+# 3. Sort based on the selection - RESET INDEX to avoid confusion
+chart_df = chart_df.reset_index(drop=True)
+
 if sort_option == "Ticker: A-Z":
     chart_df = chart_df.sort_values(by="Ticker", ascending=True)
 elif sort_option == "Ticker: Z-A":
@@ -136,9 +134,18 @@ elif sort_option == "Value: Low to High":
 elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
-# 4. FIXED: Reset index and set Ticker as the index to preserve sort order
-chart_df = chart_df.reset_index(drop=True)
-chart_df = chart_df.set_index("Ticker")
+# 4. FIXED: Use Plotly instead of st.bar_chart() for better control
+fig = px.bar(
+    chart_df, 
+    x="Ticker", 
+    y="Value",
+    title="Portfolio Value by Asset",
+    labels={"Value": "Value (THB)", "Ticker": "Stock Ticker"},
+    color="Value",
+    color_continuous_scale="Viridis"
+)
 
-# 5. FIXED: Add key parameter with sort_option to force chart re-render
-st.bar_chart(chart_df["Value"], use_container_width=True)
+# Maintain the order by setting category order
+fig.update_xaxes(categoryorder="array", categoryarray=chart_df["Ticker"].tolist())
+
+st.plotly_chart(fig, use_container_width=True, key=f"chart_{sort_option}")
