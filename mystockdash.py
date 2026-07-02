@@ -111,28 +111,34 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# 1. Inject Foolproof CSS
-st.markdown("""
-<style>
-/* Target strictly the FIRST row of columns on the page */
-div[data-testid="stHorizontalBlock"]:first-of-type div[data-testid="stMetric"] {
-    background-color: rgba(0, 150, 255, 0.08) !important;
-    border: 1px solid rgba(0, 150, 255, 0.2) !important;
-    padding: 15px !important;
-    border-radius: 10px !important;
-}
-</style>
-""", unsafe_allow_html=True)
+# Determine colors and arrows for Profit/Loss
+pl_color = "#09ab3b" if real_pl >= 0 else "#ff2b2b"
+pl_arrow = "↑" if real_pl >= 0 else "↓"
 
-# 2. Draw the container (Removed the hidden tags!)
-with st.container(border=True):
-    st.subheader("True Portfolio Performance")
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
-    col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
-    col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
+# Build a custom HTML card to guarantee the entire box is shaded
+custom_card = f"""
+<div style="background-color: rgba(0, 150, 255, 0.08); border: 1px solid rgba(0, 150, 255, 0.3); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1rem;">
+    <h3 style="margin-top: 0; margin-bottom: 1rem; font-family: sans-serif;">True Portfolio Performance</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div style="flex: 1; min-width: 200px;">
+            <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real Total Value (Stocks + Cash)</p>
+            <h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{real_total_value:,.2f} THB</h2>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Original Investment</p>
+            <h2 style="margin: 0.25rem 0 0 0; font-weight: 400;">{ORIGINAL_INVESTMENT:,.2f} THB</h2>
+        </div>
+        <div style="flex: 1; min-width: 200px;">
+            <p style="margin: 0; font-size: 0.875rem; opacity: 0.7;">Real P/L</p>
+            <h2 style="margin: 0.25rem 0 0.5rem 0; font-weight: 400;">{real_pl:,.2f} THB</h2>
+            <span style="color: {pl_color}; font-weight: bold; font-size: 0.875rem;">{pl_arrow} {real_pl_pct:.2f}%</span>
+        </div>
+    </div>
+</div>
+"""
 
-st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
+# Render the custom card
+st.markdown(custom_card, unsafe_allow_html=True)
 
 
 # --- BOTTOM ROW: STOCK ONLY PERFORMANCE ---
