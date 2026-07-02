@@ -31,6 +31,11 @@ def fetch_prices(tickers):
     return data['Close'].iloc[-1]
 
 # 3. Data Processing
+tickers = list(MY_PORTFOLIO.keys())
+# --- ADD THIS LINE BELOW ---
+prices = fetch_prices(tickers) 
+# ---------------------------
+
 rows = []
 total_val = 0
 total_cost = 0
