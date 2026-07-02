@@ -106,8 +106,11 @@ sort_option = st.selectbox(
 )
 
 # 2. Define the sorting logic
-# --- ADDED: Drop rows with NaN values to prevent the crash ---
-chart_df = df.dropna(subset=['Value']) 
+# We convert Value to numeric, forcing errors to NaN, then drop those rows.
+# This ensures no "None" or "NaN" values can ever break the chart.
+chart_df = df.copy()
+chart_df['Value'] = pd.to_numeric(chart_df['Value'], errors='coerce')
+chart_df = chart_df.dropna(subset=['Value'])
 
 if sort_option == "Ticker: A-Z":
     chart_df = chart_df.sort_values(by="Ticker", ascending=True)
@@ -119,4 +122,5 @@ elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
 # 3. Display the chart
+# Using st.bar_chart with the specific sorted DataFrame
 st.bar_chart(chart_df.set_index("Ticker")["Value"])
