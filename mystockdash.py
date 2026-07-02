@@ -111,6 +111,17 @@ real_pl = real_total_value - ORIGINAL_INVESTMENT
 real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 else 0
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
+
+# Inject CSS to shade the container
+st.markdown("""
+<style>
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    background-color: rgba(0, 150, 255, 0.08); /* Adds a subtle, elegant blue shade */
+    border-radius: 0.5rem;
+}
+</style>
+""", unsafe_allow_html=True)
+
 with st.container(border=True):
     st.subheader("True Portfolio Performance")
     col1, col2, col3 = st.columns(3)
