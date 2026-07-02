@@ -111,11 +111,12 @@ real_pl = real_total_value - ORIGINAL_INVESTMENT
 real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 else 0
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
-st.subheader("True Portfolio Performance")
-col1, col2, col3 = st.columns(3)
-col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
-col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
-col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
+with st.container(border=True):
+    st.subheader("True Portfolio Performance")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
+    col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
+    col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
 st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
 
