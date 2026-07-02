@@ -112,15 +112,17 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# Inject CSS to shade ONLY the first bordered container (your True Portfolio Performance block)
+# --- TOP ROW: OVERALL REAL PERFORMANCE ---
+
+# 1. Inject CSS to hunt for our specific 'blue-tag'
 st.markdown("""
 <style>
-/* Target the first bordered container on the page */
-div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
-    background-color: rgba(0, 150, 255, 0.08);
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid rgba(0, 150, 255, 0.25);
+/* Target ONLY metrics inside a column that contains our hidden blue tag */
+div[data-testid="stColumn"]:has(.blue-tag) div[data-testid="stMetric"] {
+    background-color: rgba(0, 150, 255, 0.08) !important;
+    border: 1px solid rgba(0, 150, 255, 0.2) !important;
+    padding: 15px !important;
+    border-radius: 10px !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -128,9 +130,18 @@ div[data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
 with st.container(border=True):
     st.subheader("True Portfolio Performance")
     col1, col2, col3 = st.columns(3)
+    
+    # Drop a hidden tag directly inside each column we want to shade
+    col1.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
     col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
+    
+    col2.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
     col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
+    
+    col3.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
     col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
+
+st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
 
 
 # --- BOTTOM ROW: STOCK ONLY PERFORMANCE ---
