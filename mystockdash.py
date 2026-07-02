@@ -3,6 +3,7 @@ import yfinance as yf
 import pandas as pd
 import datetime
 import plotly.express as px
+import time
 
 st.set_page_config(page_title="My Portfolio", layout="wide")
 st.title("📊 Personal Stock Portfolio")
@@ -28,18 +29,28 @@ MY_PORTFOLIO = {
     "TRUE.BK": {"shares": 1700, "buy_price": 12.83}
 }
 
-# 2. Caching function
-@st.cache_data(ttl=600)
+# 2. Caching function with retry logic and delays
+@st.cache_data(ttl=3600)
 def fetch_prices(tickers):
     prices = {}
-    for ticker in tickers:
-        ticker_obj = yf.Ticker(ticker)
-        data = ticker_obj.history(period="1d")
-        # FIXED: Moved this if statement INSIDE the for loop
-        if not data.empty:
-            prices[ticker] = float(data['Close'].iloc[-1])
-        else:
+    for idx, ticker in enumerate(tickers):
+        try:
+            ticker_obj = yf.Ticker(ticker)
+            data = ticker_obj.history(period="1d")
+            
+            if not data.empty:
+                prices[ticker] = float(data['Close'].iloc[-1])
+            else:
+                prices[ticker] = None
+            
+            # Add delay between requests to avoid rate limiting
+            if idx < len(tickers) - 1:
+                time.sleep(0.5)
+                
+        except Exception as e:
+            st.warning(f"Could not fetch data for {ticker}: {str(e)}")
             prices[ticker] = None
+    
     return prices
 
 # 3. Data Processing
@@ -53,10 +64,8 @@ total_cost = 0
 for ticker, info in MY_PORTFOLIO.items():
     price = prices.get(ticker) 
     
-    # --- ADD THESE TWO LINES TO PREVENT THE CRASH ---
     if price is None or pd.isna(price):
         continue
-    # ------------------------------------------------
     
     shares = info["shares"]
     val = price * shares
@@ -134,7 +143,7 @@ elif sort_option == "Value: Low to High":
 elif sort_option == "Value: High to Low":
     chart_df = chart_df.sort_values(by="Value", ascending=False)
 
-# 4. FIXED: Use Plotly instead of st.bar_chart() for better control
+# 4. Use Plotly for interactive charts
 fig = px.bar(
     chart_df, 
     x="Ticker", 
