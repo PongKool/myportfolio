@@ -26,7 +26,7 @@ ORIGINAL_INVESTMENT = 600000.0  # Hardcode your actual deposited amount here
 
 # User input for cash on hand
 line_available = st.number_input("Line Available (Cash in account in THB)", min_value=0.0, value=0.0, step=1000.0)
-st.divider() # Adds a clean visual line to separate settings from the dashboard
+# st.divider() # Adds a clean visual line to separate settings from the dashboard
 
 
 # 1. Define your portfolio
@@ -117,6 +117,8 @@ with st.container(border=True):
     col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
     col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
     col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
+
+st.divider()
 
 st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
 
