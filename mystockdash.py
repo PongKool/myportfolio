@@ -112,8 +112,7 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# 1. Inject CSS to turn ONLY the top metrics into premium cards
-# Custom styled container for True Portfolio Performance
+# Custom styled block for True Portfolio Performance
 st.markdown("""
 <div style="
     background-color: rgba(0, 150, 255, 0.08);
@@ -122,15 +121,16 @@ st.markdown("""
     margin-bottom: 20px;
     border: 1px solid rgba(0, 150, 255, 0.25);
 ">
+<h3 style="margin-top:0;">True Portfolio Performance</h3>
 """, unsafe_allow_html=True)
 
-st.subheader("True Portfolio Performance")
 col1, col2, col3 = st.columns(3)
 col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
 col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
 col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
 st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 # --- BOTTOM ROW: STOCK ONLY PERFORMANCE ---
