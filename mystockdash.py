@@ -116,8 +116,7 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 st.markdown("""
 <style>
 div[data-testid="stVerticalBlockBorderWrapper"] {
-    background-color: rgba(0, 150, 255, 0.08); /* Adds a subtle, elegant blue shade */
-    border-radius: 0.5rem;
+    background-color: rgba(0, 150, 255, 0.15) !important; 
 }
 </style>
 """, unsafe_allow_html=True)
