@@ -95,6 +95,26 @@ st.dataframe(
     use_container_width=True
 )
 
-# Optional: Add a quick visualization
+# Optional: Add a quick visualization with sorting options
 st.subheader("Asset Allocation")
-st.bar_chart(df.set_index("Ticker")["Value"])
+
+# Create sorting options in the sidebar
+sort_option = st.sidebar.selectbox(
+    "Sort Asset Allocation by:",
+    ("Value: High to Low", "Value: Low to High", "Ticker: A-Z", "Ticker: Z-A")
+)
+
+# Apply sorting logic
+chart_df = df.copy() # Work on a copy to keep the table as is
+
+if sort_option == "Value: High to Low":
+    chart_df = chart_df.sort_values(by="Value", ascending=False)
+elif sort_option == "Value: Low to High":
+    chart_df = chart_df.sort_values(by="Value", ascending=True)
+elif sort_option == "Ticker: A-Z":
+    chart_df = chart_df.sort_values(by="Ticker", ascending=True)
+elif sort_option == "Ticker: Z-A":
+    chart_df = chart_df.sort_values(by="Ticker", ascending=False)
+
+# Display the sorted chart
+st.bar_chart(chart_df.set_index("Ticker")["Value"])
