@@ -112,23 +112,26 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# 1. Inject CSS to target the specific bordered container
+# 1. Inject CSS to hunt down our hidden beacon
 st.markdown("""
 <style>
-/* Target the very first bordered container on the page */
-div[data-testid="stVerticalBlockBorderWrapper"]:nth-of-type(1) {
+/* Find the exact bordered wrapper that contains our hidden anchor */
+div[data-testid="stVerticalBlockBorderWrapper"]:has(#true-perf-target) {
     background-color: rgba(0, 150, 255, 0.12) !important;
-    border: 1px solid rgba(0, 150, 255, 0.4) !important;
+    border: 2px solid rgba(0, 150, 255, 0.4) !important;
 }
-/* Force the inside of that container to be transparent so the blue shows through */
-div[data-testid="stVerticalBlockBorderWrapper"]:nth-of-type(1) > div {
+/* Force Streamlit's invisible inner blocks to be transparent */
+div[data-testid="stVerticalBlockBorderWrapper"]:has(#true-perf-target) div {
     background-color: transparent !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# 2. Draw the native container (No HTML div wrappers needed!)
+# 2. Draw the native container
 with st.container(border=True):
+    # --- THE BEACON: We hide this inside the box so CSS can find it ---
+    st.markdown('<div id="true-perf-target"></div>', unsafe_allow_html=True)
+    
     st.subheader("True Portfolio Performance")
     col1, col2, col3 = st.columns(3)
     col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
