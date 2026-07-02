@@ -113,40 +113,32 @@ real_pl_pct = (real_pl / ORIGINAL_INVESTMENT) * 100 if ORIGINAL_INVESTMENT != 0 
 
 # --- TOP ROW: OVERALL REAL PERFORMANCE ---
 
-# 1. Inject CSS to shade the ENTIRE container using our 'blue-tag'
+# --- TOP ROW: OVERALL REAL PERFORMANCE ---
+
+# 1. Inject CSS
 st.markdown("""
 <style>
-/* Target the massive bordered wrapper that contains our blue tags */
+/* Find the bordered box that contains the tag and shade it */
 div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) {
-    background-color: rgba(0, 150, 255, 0.08) !important;
+    background-color: rgba(0, 150, 255, 0.12) !important;
     border: 1px solid rgba(0, 150, 255, 0.4) !important;
 }
 
-/* Force Streamlit's inner layout blocks to be transparent so the shade shows through */
-div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) [data-testid="stVerticalBlock"] {
+/* Force ALL inner layout blocks to be transparent so the white layers disappear */
+div[data-testid="stVerticalBlockBorderWrapper"]:has(.blue-tag) div {
     background-color: transparent !important;
-}
-
-/* Remove the individual card borders so they blend smoothly into the big box */
-div[data-testid="stColumn"]:has(.blue-tag) div[data-testid="stMetric"] {
-    background-color: transparent !important;
-    border: none !important;
 }
 </style>
 """, unsafe_allow_html=True)
 
 with st.container(border=True):
+    # 2. DROP THE BEACON HERE (Right at the top, outside the columns!)
+    st.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
+    
     st.subheader("True Portfolio Performance")
     col1, col2, col3 = st.columns(3)
-    
-    # Drop a hidden tag directly inside each column we want to shade
-    col1.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
     col1.metric("Real Total Value (Stocks + Cash)", f"{real_total_value:,.2f} THB")
-    
-    col2.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
     col2.metric("Original Investment", f"{ORIGINAL_INVESTMENT:,.2f} THB")
-    
-    col3.markdown('<span class="blue-tag"></span>', unsafe_allow_html=True)
     col3.metric("Real P/L", f"{real_pl:,.2f} THB", delta=f"{real_pl_pct:.2f}%")
 
 st.markdown("<br>", unsafe_allow_html=True) # Adds a little spacing
