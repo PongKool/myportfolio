@@ -31,14 +31,15 @@ line_available = st.number_input("Line Available (Cash in account in THB)", min_
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "ADVANC.BK": {"shares": 200, "buy_price": 362.61},
-    "AOT.BK": {"shares": 1300, "buy_price": 63.82},
-    "KBANK.BK": {"shares": 500, "buy_price": 206.75},
-    "IVL.BK": {"shares": 1200, "buy_price": 22.74},
-    "BDMS.BK": {"shares": 3000, "buy_price": 18.62},
-    "KTB.BK": {"shares": 1000, "buy_price": 36.53},
+    "ADVANC.BK": {"shares": 200, "buy_price": 368.12},
+    "AOT.BK": {"shares": 1000, "buy_price": 63.82},
+    "KBANK.BK": {"shares": 400, "buy_price": 218.07},
+    "IVL.BK": {"shares": 2200, "buy_price": 22.97},
+    "BDMS.BK": {"shares": 1500, "buy_price": 18.62},
+    "KTB.BK": {"shares": 800, "buy_price": 37.56},
     "PTT.BK": {"shares": 4700, "buy_price": 35.77},
-    "SCB.BK": {"shares": 900, "buy_price": 142.63}
+    "SCB.BK": {"shares": 500, "buy_price": 142.63},
+    "GULF.BK": {"shares": 1500, "buy_price": 64.31}
 }
 
 # 2. Caching function with retry logic and delays
