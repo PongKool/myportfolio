@@ -22,7 +22,7 @@ st.caption(f"Last updated: {thailand_time} (Bangkok)")
 
 # --- PORTFOLIO SETTINGS ---
 st.markdown("### Portfolio Settings")
-ORIGINAL_INVESTMENT = 600000.0  # Hardcode your actual deposited amount here
+ORIGINAL_INVESTMENT = 657600.0  # Hardcode your actual deposited amount here
 
 # User input for cash on hand
 line_available = st.number_input("Line Available (Cash in account in THB)", min_value=0.0, value=0.0, step=1000.0)
@@ -31,14 +31,14 @@ line_available = st.number_input("Line Available (Cash in account in THB)", min_
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "ADVANC.BK": {"shares": 200, "buy_price": 368.12},
-    "AOT.BK": {"shares": 1000, "buy_price": 63.82},
-    "KBANK.BK": {"shares": 400, "buy_price": 218.07},
+    "ADVANC.BK": {"shares": 200, "buy_price": 368.62},
+    "AOT.BK": {"shares": 1300, "buy_price": 64.34},
+    "KBANK.BK": {"shares": 400, "buy_price": 219.62},
     "IVL.BK": {"shares": 2200, "buy_price": 22.97},
     "BDMS.BK": {"shares": 1500, "buy_price": 18.62},
-    "KTB.BK": {"shares": 800, "buy_price": 37.56},
+    "KTB.BK": {"shares": 800, "buy_price": 37.75},
     "PTT.BK": {"shares": 4700, "buy_price": 35.77},
-    "SCB.BK": {"shares": 500, "buy_price": 142.63},
+    "SCB.BK": {"shares": 500, "buy_price": 142.02},
     "GULF.BK": {"shares": 1500, "buy_price": 64.31}
 }
 
