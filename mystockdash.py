@@ -26,13 +26,38 @@ ORIGINAL_INVESTMENT = 657600.0  # FSS=292600; SBITO=365000; Hardcode your actual
 
 # User input for cash on hand
 # User input for cash on hand (allows math expressions)
-line_available_str = st.text_input("Line Available (Cash in account in THB)", value="0")
+# 1. Initialize session state for the input if it doesn't exist yet
+if 'line_input' not in st.session_state:
+    st.session_state.line_input = "0"
 
+# 2. Callback function that calculates the math when you press Enter
+def calculate_line():
+    try:
+        raw_val = st.session_state.line_input
+        # Evaluate the math expression
+        calc_val = float(eval(raw_val))
+        # Format it cleanly (removes .0 if it's a whole number)
+        if calc_val.is_integer():
+            st.session_state.line_input = str(int(calc_val))
+        else:
+            st.session_state.line_input = str(calc_val)
+    except Exception:
+        # If there's an error (like typing a letter), do nothing here. 
+        # The main code block below will catch it and show the error message.
+        pass
+
+# 3. User input linked to the session state and the callback
+line_available_str = st.text_input(
+    "Line Available (Cash in account in THB)", 
+    key="line_input", 
+    on_change=calculate_line
+)
+
+# 4. Final safety check and assignment for the rest of your dashboard
 try:
-    # Evaluate the math expression and convert to float
+    # Since the callback runs first, this will now usually just be converting "3000" to float
     line_available = float(eval(line_available_str))
 except Exception:
-    # Fallback in case of a typo or invalid math expression
     st.error("Invalid math expression. Please enter numbers and operators like 1000 + 2000")
     line_available = 0.0
 
