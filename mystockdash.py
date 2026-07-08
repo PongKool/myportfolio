@@ -25,8 +25,16 @@ st.markdown("### Portfolio Settings")
 ORIGINAL_INVESTMENT = 657600.0  # FSS=292600; SBITO=365000; Hardcode your actual deposited amount here
 
 # User input for cash on hand
-line_available = st.number_input("Line Available (Cash in account in THB)", min_value=0.0, value=0.0, step=1000.0)
-# st.divider() # Adds a clean visual line to separate settings from the dashboard
+# User input for cash on hand (allows math expressions)
+line_available_str = st.text_input("Line Available (Cash in account in THB)", value="0")
+
+try:
+    # Evaluate the math expression and convert to float
+    line_available = float(eval(line_available_str))
+except Exception:
+    # Fallback in case of a typo or invalid math expression
+    st.error("Invalid math expression. Please enter numbers and operators like 1000 + 2000")
+    line_available = 0.0
 
 
 # 1. Define your portfolio
