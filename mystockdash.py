@@ -70,10 +70,10 @@ MY_PORTFOLIO = {
     "IVL.BK": {"shares": 3100, "buy_price": 23.11},
     "PTTGC.BK": {"shares": 1000, "buy_price": 34.31},
 #    "BDMS.BK": {"shares": 1500, "buy_price": 18.62},
-    "KTB.BK": {"shares": 1000, "buy_price": 40.54},
+    "KTB.BK": {"shares": 1700, "buy_price": 40.64},
     "PTT.BK": {"shares": 6200, "buy_price": 36.02},
     "CPF.BK": {"shares": 1500, "buy_price": 22.32},
-    "BCP.BK": {"shares": 1000, "buy_price": 35.78}
+    "BCP.BK": {"shares": 2000, "buy_price": 36.53}
 #    "SCB.BK": {"shares": 500, "buy_price": 142.02},
 #    "GULF.BK": {"shares": 1500, "buy_price": 64.31}
     
