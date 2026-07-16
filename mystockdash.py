@@ -64,18 +64,18 @@ except Exception:
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "ADVANC.BK": {"shares": 100, "buy_price": 370.96},
-#    "AOT.BK": {"shares": 1300, "buy_price": 64.34},
-    "KBANK.BK": {"shares": 400, "buy_price": 231.39},
-    "IVL.BK": {"shares": 2500, "buy_price": 23.13},
+    "ADVANC.BK": {"shares": 200, "buy_price": 375.63},
+    "SCC.BK": {"shares": 100, "buy_price": 256.43},
+    "KBANK.BK": {"shares": 200, "buy_price": 235.39},
+    "IVL.BK": {"shares": 2500, "buy_price": 23.22},
     "PTTGC.BK": {"shares": 1500, "buy_price": 34.39},
-    "WHA.BK": {"shares": 10800, "buy_price": 5.46},
+    "WHA.BK": {"shares": 7500, "buy_price": 5.46},
     "KTB.BK": {"shares": 1700, "buy_price": 40.64},
     "PTT.BK": {"shares": 6200, "buy_price": 36.02},
-#    "CPF.BK": {"shares": 1500, "buy_price": 22.32},
-    "BCP.BK": {"shares": 2000, "buy_price": 36.53},
+    "PTTEP.BK": {"shares": 500, "buy_price": 144.03},
+    "BCP.BK": {"shares": 2000, "buy_price": 36.53}
 #    "SCB.BK": {"shares": 500, "buy_price": 142.02},
-    "GULF.BK": {"shares": 1100, "buy_price": 63.56}
+#    "GULF.BK": {"shares": 1100, "buy_price": 63.56}
     
 }
 
