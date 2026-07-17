@@ -22,7 +22,7 @@ st.caption(f"Last updated: {thailand_time} (Bangkok)")
 
 # --- PORTFOLIO SETTINGS ---
 st.markdown("### Portfolio Settings")
-ORIGINAL_INVESTMENT = 700000.0  # FSS=292600; SBITO=407400; Hardcode your actual deposited amount here
+ORIGINAL_INVESTMENT = 800000.0  # FSS=292600; SBITO=507400; Hardcode your actual deposited amount here
 
 # User input for cash on hand
 # User input for cash on hand (allows math expressions)
