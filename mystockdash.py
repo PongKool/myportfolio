@@ -22,7 +22,7 @@ st.caption(f"Last updated: {thailand_time} (Bangkok)")
 
 # --- PORTFOLIO SETTINGS ---
 st.markdown("### Portfolio Settings")
-ORIGINAL_INVESTMENT = 800000.0  # FSS=292600; SBITO=507400; Hardcode your actual deposited amount here
+ORIGINAL_INVESTMENT = 900000.0  # FSS=292600; SBITO=607400; Hardcode your actual deposited amount here
 
 # User input for cash on hand
 # User input for cash on hand (allows math expressions)
@@ -65,17 +65,17 @@ except Exception:
 # 1. Define your portfolio
 MY_PORTFOLIO = {
     "ADVANC.BK": {"shares": 300, "buy_price": 376.97},
-    "SCC.BK": {"shares": 100, "buy_price": 256.43},
+#    "SCC.BK": {"shares": 100, "buy_price": 256.43},
 #    "KBANK.BK": {"shares": 200, "buy_price": 235.39},
     "IVL.BK": {"shares": 2900, "buy_price": 23.40},
     "PTTGC.BK": {"shares": 1500, "buy_price": 34.39},
-    "WHA.BK": {"shares": 7500, "buy_price": 5.46},
-    "KTB.BK": {"shares": 1800, "buy_price": 40.69},
+    "WHA.BK": {"shares": 7000, "buy_price": 5.46},
+    "KTB.BK": {"shares": 2800, "buy_price": 41.08},
     "PTT.BK": {"shares": 7200, "buy_price": 36.40},
     "PTTEP.BK": {"shares": 500, "buy_price": 144.03},
     "BCP.BK": {"shares": 2000, "buy_price": 36.53},
-    "TRUE.BK": {"shares": 4000, "buy_price": 14.01},
-#    "GULF.BK": {"shares": 1100, "buy_price": 63.56}
+    "TRUE.BK": {"shares": 4200, "buy_price": 14.01},
+    "GULF.BK": {"shares": 400, "buy_price": 67.86}
     
 }
 
