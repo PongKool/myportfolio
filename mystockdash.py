@@ -64,19 +64,20 @@ except Exception:
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "ADVANC.BK": {"shares": 300, "buy_price": 376.97},
+    "ADVANC.BK": {"shares": 200, "buy_price": 376.97},
 #    "SCC.BK": {"shares": 100, "buy_price": 256.43},
 #    "KBANK.BK": {"shares": 200, "buy_price": 235.39},
-    "IVL.BK": {"shares": 2900, "buy_price": 23.40},
-    "PTTGC.BK": {"shares": 1500, "buy_price": 34.39},
-    "WHA.BK": {"shares": 7000, "buy_price": 5.46},
+    "GULF.BK": {"shares": 400, "buy_price": 67.86},
+    "IVL.BK": {"shares": 3400, "buy_price": 23.61},
+    "PTTGC.BK": {"shares": 2100, "buy_price": 35.94},
+    "WHA.BK": {"shares": 7200, "buy_price": 5.46},
+    "BCP.BK": {"shares": 2300, "buy_price": 37.64},
     "KTB.BK": {"shares": 2800, "buy_price": 41.08},
-    "PTT.BK": {"shares": 7200, "buy_price": 36.40},
+    "PTT.BK": {"shares": 7500, "buy_price": 36.53},
     "PTTEP.BK": {"shares": 500, "buy_price": 144.03},
-    "BCP.BK": {"shares": 2000, "buy_price": 36.53},
-    "TRUE.BK": {"shares": 4200, "buy_price": 14.01},
-    "GULF.BK": {"shares": 400, "buy_price": 67.86}
-    
+    "TRUE.BK": {"shares": 4700, "buy_price": 14.00},
+    "WHAUP.BK": {"shares": 3300, "buy_price": 8.06}
+        
 }
 
 # 2. Caching function with retry logic and delays
