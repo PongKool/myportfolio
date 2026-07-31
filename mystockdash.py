@@ -68,14 +68,15 @@ MY_PORTFOLIO = {
 #    "SCC.BK": {"shares": 100, "buy_price": 256.43},
 #    "KBANK.BK": {"shares": 200, "buy_price": 235.39},
     "GULF.BK": {"shares": 500, "buy_price": 67.46},
-    "IVL.BK": {"shares": 3400, "buy_price": 23.61},
-    "PTTGC.BK": {"shares": 2300, "buy_price": 36.17},
+    "PRM.BK": {"shares": 1000, "buy_price": 10.12},
+#    "IVL.BK": {"shares": 3400, "buy_price": 23.61},
+#    "PTTGC.BK": {"shares": 2300, "buy_price": 36.17},
 #    "WHA.BK": {"shares": 7200, "buy_price": 5.46},
     "BCP.BK": {"shares": 2300, "buy_price": 37.64},
 #    "KTB.BK": {"shares": 2800, "buy_price": 41.08},
 #    "PTT.BK": {"shares": 7500, "buy_price": 36.53},
     "PTTEP.BK": {"shares": 500, "buy_price": 144.03},
-    "TRUE.BK": {"shares": 4700, "buy_price": 14.00},
+    "TRUE.BK": {"shares": 5700, "buy_price": 14.07},
     "WHAUP.BK": {"shares": 3300, "buy_price": 8.06}
         
 }
