@@ -2,3 +2,4 @@ streamlit
 yfinance
 pandas
 plotly
+starlette<0.40.0
