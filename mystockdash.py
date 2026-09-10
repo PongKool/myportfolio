@@ -64,22 +64,24 @@ except Exception:
 
 # 1. Define your portfolio
 MY_PORTFOLIO = {
-    "AOT.BK": {"shares": 600, "buy_price": 66.06},
-    "BH.BK": {"shares": 400, "buy_price": 190.69},
-    "GULF.BK": {"shares": 1100, "buy_price": 67.18},
-#    "PRM.BK": {"shares": 3000, "buy_price": 10.00},
-    "SCC.BK": {"shares": 200, "buy_price": 262.44},
-    "TU.BK": {"shares": 6400, "buy_price": 13.28},
+    "BBL.BK": {"shares": 500, "buy_price": 193.32},
+    "GPSC.BK": {"shares": 400, "buy_price": 51.59},
+    "GULF.BK": {"shares": 500, "buy_price": 67.41},
+    "SCC.BK": {"shares": 300, "buy_price": 265.11},
+    "TU.BK": {"shares": 4000, "buy_price": 13.31},
     "BDMS.BK": {"shares": 4500, "buy_price": 20.01},
-    "BCP.BK": {"shares": 1500, "buy_price": 49.71},
-#    "WHA.BK": {"shares": 7200, "buy_price": 5.46},
-     "KBANK.BK": {"shares": 300, "buy_price": 251.55},
-     "KTB.BK": {"shares": 2800, "buy_price": 44.54},
-     "PTT.BK": {"shares": 4500, "buy_price": 39.76},
- #   "PTTEP.BK": {"shares": 100, "buy_price": 149.13},
-    "TRUE.BK": {"shares": 6000, "buy_price": 14.06},
-  #  "WHAUP.BK": {"shares": 3300, "buy_price": 8.06}
-        
+    "BH.BK": {"shares": 200, "buy_price": 197.67},
+    "IVL.BK": {"shares": 2500, "buy_price": 25.32},
+    "KTB.BK": {"shares": 2800, "buy_price": 44.54},
+    "OR.BK": {"shares": 6000, "buy_price": 12.64}, 
+    "PTT.BK": {"shares": 3000, "buy_price": 41.62}, 
+    "TRUE.BK": {"shares": 4000, "buy_price": 14.09},
+    "WHA.BK": {"shares": 18000, "buy_price": 4.87}
+    
+    # "PTTEP.BK": {"shares": 100, "buy_price": 149.13},
+    # "KBANK.BK": {"shares": 300, "buy_price": 251.55},
+    # "PRM.BK": {"shares": 3000, "buy_price": 10.00},
+    # "WHAUP.BK": {"shares": 3300, "buy_price": 8.06}
 }
 
 # 2. Caching function with retry logic and delays
