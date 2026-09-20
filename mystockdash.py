@@ -67,20 +67,23 @@ MY_PORTFOLIO = {
     "BBL.BK": {"shares": 500, "buy_price": 193.32},
     "GPSC.BK": {"shares": 400, "buy_price": 51.59},
     "GULF.BK": {"shares": 500, "buy_price": 67.41},
-    "SCC.BK": {"shares": 300, "buy_price": 265.11},
     "TU.BK": {"shares": 4000, "buy_price": 13.31},
-    "BDMS.BK": {"shares": 4500, "buy_price": 20.01},
-    "BH.BK": {"shares": 200, "buy_price": 197.67},
+    "ADVANC.BK": {"shares": 100, "buy_price": 355.31},
+    "BDMS.BK": {"shares": 100, "buy_price": 20.22},
     "IVL.BK": {"shares": 2500, "buy_price": 25.32},
-    "KTB.BK": {"shares": 2800, "buy_price": 44.54},
+    "KBANK.BK": {"shares": 200, "buy_price": 253.22},
+    "KTB.BK": {"shares": 3100, "buy_price": 44.54},
     "OR.BK": {"shares": 6000, "buy_price": 12.64}, 
-    "PTT.BK": {"shares": 3000, "buy_price": 41.62}, 
+    "PTT.BK": {"shares": 3000, "buy_price": 41.62},
+    "SCB.BK": {"shares": 200, "buy_price": 151.88},
     "TRUE.BK": {"shares": 4000, "buy_price": 14.09},
     "WHA.BK": {"shares": 18000, "buy_price": 4.87}
     
     # "PTTEP.BK": {"shares": 100, "buy_price": 149.13},
     # "KBANK.BK": {"shares": 300, "buy_price": 251.55},
     # "PRM.BK": {"shares": 3000, "buy_price": 10.00},
+    #    "SCC.BK": {"shares": 300, "buy_price": 265.11},
+    #   "BH.BK": {"shares": 200, "buy_price": 197.67},
     # "WHAUP.BK": {"shares": 3300, "buy_price": 8.06}
 }
 
